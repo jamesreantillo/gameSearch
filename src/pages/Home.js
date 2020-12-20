@@ -2,14 +2,18 @@ import React, { useEffect } from 'react';
 //REDUX
 import { useDispatch, useSelector } from 'react-redux';
 import { loadGames } from '../actions/gamesAction';
+//COMPONENTS
 import Game from '../components/Game';
 import GameDetail from '../components/GameDetail';
 //STYLING and ANIMATION
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import gamesReducer from '../reducers/gamesReducer';
+import { useLocation } from 'react-router-dom';
 
 const Home = () => {
+  //GET THE CURRENT LOCATION
+  const location = useLocation();
+  const pathId = location.pathname.split('/')[2];
   //FETCH GAMES
   const dispatch = useDispatch();
   useEffect(() => {
@@ -21,7 +25,7 @@ const Home = () => {
 
   return (
     <GameList>
-      <GameDetail />
+      {pathId && <GameDetail />}
       <h2>Upcoming Games</h2>
       <Games>
         {upcoming.map((game) => (
